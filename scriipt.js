@@ -604,6 +604,7 @@ parameter you have the straight triple 999 and you have a straight double, 99, o
 second parameter. If this isn't the case, return 0. 
 */
 
+/*
 function TripleDouble(num1, num2) {
   num1Str = num1.toString();
   num2Str = num2.toString();
@@ -623,3 +624,53 @@ function TripleDouble(num1, num2) {
   return 0;
 }
 console.log(TripleDouble(451992777, 41177722899));
+*/
+
+function arrayJumping(arr) {
+  const max = Math.max(...arr);
+  const startIndex = arr.indexOf(max);
+
+  // Iterative "breadth-first search"
+  // `queue` stores an array of arrays.  The inner arrays represent paths of
+  // indexes.  They all start with the index of the largest number and each
+  // jump is appended and the entire new structure is stored in a new queue.
+
+  let queue = [[startIndex]];
+  console.log(queue);
+
+  while (queue.length !== 0) {
+    const nextQueue = [];
+
+    for (let i = 0; i < queue.length; i++) {
+      const indexList = queue[i];
+      const lastIndex = indexList[indexList.length - 1];
+
+      const left =
+        (((lastIndex - arr[lastIndex]) % arr.length) + arr.length) % arr.length;
+      console.log(left);
+      const right = (lastIndex + arr[lastIndex]) % arr.length;
+
+      if (left === startIndex || right === startIndex) {
+        // Success!
+        return indexList.length;
+      }
+
+      if (!indexList.includes(left)) {
+        const leftArr = indexList.slice();
+        leftArr.push(left);
+        nextQueue.push(leftArr);
+      }
+
+      if (!indexList.includes(right)) {
+        const rightArr = indexList.slice();
+        rightArr.push(right);
+        nextQueue.push(rightArr);
+      }
+    }
+    return (queue = nextQueue);
+  }
+
+  // No path possible
+  return -1;
+}
+console.log(arrayJumping([2, 3, 5, 6, 1]));
