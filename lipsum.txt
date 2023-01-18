@@ -1,0 +1,7 @@
+
+If the mentioned file doesn't e
+xist the file is created an
+d then the text is appended to
+rintf command to append text into a fi
+le. We can also use the cat 
+command to append the content of one file to another file. Note: Don't use > of >> This will erase the data of the target file.
